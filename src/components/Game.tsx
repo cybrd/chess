@@ -12,7 +12,7 @@ export const Game: FunctionComponent = () => {
     <div id="game">
       <div>Game: {state.game.id}</div>
       <div>Turn: {state.game.turn}</div>
-      <Board>{state.game.board}</Board>
+      <Board />
     </div>
   );
 };

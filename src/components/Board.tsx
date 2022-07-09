@@ -1,5 +1,8 @@
-import { FunctionComponent } from "react";
-import { Game } from "../models/game";
+import { useContext, FunctionComponent } from "react";
+
+import { StateContext } from "../context/state";
+
+import { BoardTile } from "./BoardTile";
 
 import "./Board.scss";
 
@@ -14,13 +17,24 @@ const BoardTiles = [
   ["B", "W", "B", "W", "B", "W", "B", "W"],
 ];
 
-export const Board: FunctionComponent<{ children: Game["board"] }> = (prop) => {
+export const Board: FunctionComponent = () => {
+  const state = useContext(StateContext);
+
   return (
     <div>
       {BoardTiles.map((row, r) => (
-        <div className="blockRow">
+        <div className="blockRow" key={r}>
           {row.map((column, c) => (
-            <div className={"block" + column}>{prop.children[r][c]}</div>
+            <div
+              className={
+                "tile block" + column + " " + state.game.boardOverlay[r][c]
+              }
+              key={r + "-" + c}
+            >
+              <BoardTile row={r} column={c}>
+                {state.game.board[r][c]}
+              </BoardTile>
+            </div>
           ))}
         </div>
       ))}
