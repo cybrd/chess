@@ -1,6 +1,9 @@
+import { FunctionComponent } from "react";
+import { Game } from "../models/game";
+
 import "./Board.scss";
 
-const BoardBackgroundColor = [
+const BoardTiles = [
   ["W", "B", "W", "B", "W", "B", "W", "B"],
   ["B", "W", "B", "W", "B", "W", "B", "W"],
   ["W", "B", "W", "B", "W", "B", "W", "B"],
@@ -11,24 +14,13 @@ const BoardBackgroundColor = [
   ["B", "W", "B", "W", "B", "W", "B", "W"],
 ];
 
-const BoardData = [
-  ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
-  ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
-  ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", ""],
-  ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
-  ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"],
-];
-
-export const Board = () => {
+export const Board: FunctionComponent<{ children: Game["board"] }> = (prop) => {
   return (
     <div>
-      {BoardBackgroundColor.map((row, r) => (
+      {BoardTiles.map((row, r) => (
         <div className="blockRow">
           {row.map((column, c) => (
-            <div className={"block" + column}>{BoardData[r][c]}</div>
+            <div className={"block" + column}>{prop.children[r][c]}</div>
           ))}
         </div>
       ))}
