@@ -1,0 +1,19 @@
+.blockRow {
+  display: flex;
+}
+
+.blockW,
+.blockB {
+  width: 64px;
+  height: 64px;
+  font-size: 48px;
+  text-align: center;
+}
+
+.blockW {
+  background-color: white;
+}
+
+.blockB {
+  background-color: darkgray;
+}
