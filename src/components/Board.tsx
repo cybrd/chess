@@ -25,7 +25,7 @@ export const Board: FunctionComponent = () => {
     return () => {
       if (state.game.boardOverlay[r][c] === "possible") {
         state.game = move(state.game, [r, c]);
-        state.updateGame(state.game);
+        state.setGame({ ...state.game });
       }
     };
   };

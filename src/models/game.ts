@@ -15,3 +15,6 @@ export const emptyTiles = [
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
 ];
+
+export const whitePieces = ["♖", "♘", "♗", "♕", "♔", "♙"];
+export const blackPieces = ["♜", "♞", "♝", "♛", "♚", "♟"];

@@ -7,19 +7,19 @@ export const gameDefault: Game = {
   id: v4(),
   turn: 1,
   board: [
-    ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
+    ["♜", "♞", "♝", "♛", "♚2", "♝", "♞", "♜"],
     ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", ""],
     ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
-    ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"],
+    ["♖", "♘", "♗", "♕", "♔2", "♗", "♘", "♖"],
   ],
   boardOverlay: JSON.parse(JSON.stringify(emptyTiles)),
 };
 
 export const StateContext = createContext({
   game: gameDefault,
-  updateGame: (game: Game) => {},
+  setGame: (game: Game) => {},
 });

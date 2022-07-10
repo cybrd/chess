@@ -1,4 +1,4 @@
-import { Game, emptyTiles } from "../../models/game";
+import { Game, emptyTiles, blackPieces } from "../../models/game";
 
 export const moves = (
   boardData: Game["board"],
@@ -15,6 +15,14 @@ export const moves = (
       if (row === 6 && row - 2 >= 0 && row - 2 <= 7) {
         boardOverlay[row - 2][column] = "possible";
       }
+    }
+
+    if (blackPieces.indexOf(boardData[row - 1][column - 1]) !== -1) {
+      boardOverlay[row - 1][column - 1] = "possible";
+    }
+
+    if (blackPieces.indexOf(boardData[row - 1][column + 1]) !== -1) {
+      boardOverlay[row - 1][column + 1] = "possible";
     }
   }
 
