@@ -7,17 +7,31 @@ export const move = (state: IStateContext, target: [number, number]) => {
 
   const [selectedRow, selectedColumn] = findSelected(boardOverlay);
 
-  const currentPiece = boardData[selectedRow][selectedColumn];
-  boardData[selectedRow][selectedColumn] = "";
-
-  boardData[target[0]][target[1]] = currentPiece;
-
-  state.setGame({
-    id: state.game.id,
-    board: boardData,
-    boardOverlay: JSON.parse(JSON.stringify(emptyTiles)),
-    turn: ++state.game.turn,
-  });
+  state.dispatch([
+    {
+      type: "INCREMENT_TURN",
+      payload: state.game.turn + 1,
+    },
+    {
+      type: "UPDATE_BOARD_OVERLAY",
+      payload: JSON.parse(JSON.stringify(emptyTiles)),
+    },
+    {
+      type: "REMOVE_PIECE",
+      payload: {
+        piece: boardData[target[0]][target[1]],
+        target: [target[0], target[1]],
+      },
+    },
+    {
+      type: "MOVE_PIECE",
+      payload: {
+        piece: boardData[selectedRow][selectedColumn],
+        from: [selectedRow, selectedColumn],
+        to: [target[0], target[1]],
+      },
+    },
+  ]);
 };
 
 const findSelected = (boardOverlay: Game["boardOverlay"]) => {

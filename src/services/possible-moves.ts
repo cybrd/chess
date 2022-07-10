@@ -19,5 +19,10 @@ export const getPossibleMoves = (
       break;
   }
 
-  state.setGame({ ...state.game });
+  state.dispatch([
+    {
+      type: "UPDATE_BOARD_OVERLAY",
+      payload: state.game.boardOverlay,
+    },
+  ]);
 };
