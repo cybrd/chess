@@ -14,8 +14,8 @@ export const App = () => {
   const state = {
     game,
     updateGame: (updated: GameModel) => {
-      return setGame((prevState) => {
-        return { ...prevState, ...updated };
+      return setGame(() => {
+        return { ...updated };
       });
     },
   };

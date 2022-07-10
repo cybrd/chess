@@ -1,5 +1,8 @@
 import { Game, emptyTiles } from "../models/game";
 
+import { moves as pawnWhiteMoves } from "./moves/pawn-white";
+import { moves as pawnBlackMoves } from "./moves/pawn-black";
+
 export const getPossibleMoves = (
   boardData: Game["board"],
   whichPiece: [number, number]
@@ -7,26 +10,12 @@ export const getPossibleMoves = (
   const row = whichPiece[0];
   const column = whichPiece[1];
 
-  const boardOverlay: string[][] = JSON.parse(JSON.stringify(emptyTiles));
-  boardOverlay[row][column] = "selected";
-
-  if (boardData[row][column] === "♙") {
-    if (row - 1 >= 0 && row - 1 <= 7) {
-      boardOverlay[row - 1][column] = "possible";
-    }
-    if (row - 2 >= 0 && row - 2 <= 7) {
-      boardOverlay[row - 2][column] = "possible";
-    }
+  switch (boardData[row][column]) {
+    case "♙":
+      return pawnWhiteMoves(boardData, whichPiece);
+    case "♟":
+      return pawnBlackMoves(boardData, whichPiece);
+    default:
+      return JSON.parse(JSON.stringify(emptyTiles));
   }
-
-  if (boardData[row][column] === "♟") {
-    if (row + 1 >= 0 && row + 1 <= 7) {
-      boardOverlay[row - 1][column] = "possible";
-    }
-    if (row + 2 >= 0 && row + 2 <= 7) {
-      boardOverlay[row + 2][column] = "possible";
-    }
-  }
-
-  return boardOverlay;
 };
