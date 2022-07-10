@@ -24,8 +24,7 @@ export const Board: FunctionComponent = () => {
   const handleClick = (r: number, c: number) => {
     return () => {
       if (state.game.boardOverlay[r][c] === "possible") {
-        state.game = move(state.game, [r, c]);
-        state.setGame({ ...state.game });
+        move(state, [r, c]);
       }
     };
   };

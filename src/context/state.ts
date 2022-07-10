@@ -1,25 +1,21 @@
 import { createContext } from "react";
 import { v4 } from "uuid";
 
-import { Game, emptyTiles } from "../models/game";
+import { Game, emptyTiles, boardDefault } from "../models/game";
 
 export const gameDefault: Game = {
   id: v4(),
   turn: 1,
-  board: [
-    ["♜", "♞", "♝", "♛", "♚2", "♝", "♞", "♜"],
-    ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", ""],
-    ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
-    ["♖", "♘", "♗", "♕", "♔2", "♗", "♘", "♖"],
-  ],
+  board: boardDefault,
   boardOverlay: JSON.parse(JSON.stringify(emptyTiles)),
 };
 
-export const StateContext = createContext({
+export type IStateContext = {
+  game: Game;
+  setGame: (game: Game) => void;
+};
+
+export const StateContext = createContext<IStateContext>({
   game: gameDefault,
-  setGame: (game: Game) => {},
+  setGame: () => {},
 });

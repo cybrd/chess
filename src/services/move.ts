@@ -1,8 +1,9 @@
+import { IStateContext } from "../context/state";
 import { Game, emptyTiles } from "../models/game";
 
-export const move = (game: Game, target: [number, number]): Game => {
-  const boardData = game.board;
-  const boardOverlay = game.boardOverlay;
+export const move = (state: IStateContext, target: [number, number]) => {
+  const boardData = state.game.board;
+  const boardOverlay = state.game.boardOverlay;
 
   const [selectedRow, selectedColumn] = findSelected(boardOverlay);
 
@@ -11,12 +12,12 @@ export const move = (game: Game, target: [number, number]): Game => {
 
   boardData[target[0]][target[1]] = currentPiece;
 
-  return {
-    id: game.id,
+  state.setGame({
+    id: state.game.id,
     board: boardData,
     boardOverlay: JSON.parse(JSON.stringify(emptyTiles)),
-    turn: ++game.turn,
-  };
+    turn: ++state.game.turn,
+  });
 };
 
 const findSelected = (boardOverlay: Game["boardOverlay"]) => {

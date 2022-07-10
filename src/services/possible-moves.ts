@@ -1,21 +1,23 @@
-import { Game, emptyTiles } from "../models/game";
+import { IStateContext } from "../context/state";
 
 import { moves as pawnWhiteMoves } from "./moves/pawn-white";
 import { moves as pawnBlackMoves } from "./moves/pawn-black";
 
 export const getPossibleMoves = (
-  boardData: Game["board"],
+  state: IStateContext,
   whichPiece: [number, number]
 ) => {
   const row = whichPiece[0];
   const column = whichPiece[1];
 
-  switch (boardData[row][column]) {
+  switch (state.game.board[row][column]) {
     case "♙":
-      return pawnWhiteMoves(boardData, whichPiece);
+      pawnWhiteMoves(state, whichPiece);
+      break;
     case "♟":
-      return pawnBlackMoves(boardData, whichPiece);
-    default:
-      return JSON.parse(JSON.stringify(emptyTiles));
+      pawnBlackMoves(state, whichPiece);
+      break;
   }
+
+  state.setGame({ ...state.game });
 };

@@ -1,31 +1,28 @@
-import { Game, emptyTiles, whitePieces } from "../../models/game";
+import { IStateContext } from "../../context/state";
+import { emptyTiles, whitePieces } from "../../models/game";
 
-export const moves = (
-  boardData: Game["board"],
-  whichPiece: [number, number]
-) => {
+export const moves = (state: IStateContext, whichPiece: [number, number]) => {
   const row = whichPiece[0];
   const column = whichPiece[1];
-  const boardOverlay: string[][] = JSON.parse(JSON.stringify(emptyTiles));
+  state.game.boardOverlay = JSON.parse(JSON.stringify(emptyTiles));
 
   if (row + 1 >= 0 && row + 1 <= 7) {
-    if (boardData[row + 1][column] === "") {
-      boardOverlay[row + 1][column] = "possible";
+    if (state.game.board[row + 1][column] === "") {
+      state.game.boardOverlay[row + 1][column] = "possible";
 
       if (row === 1 && row + 2 >= 0 && row + 2 <= 7) {
-        boardOverlay[row + 2][column] = "possible";
+        state.game.boardOverlay[row + 2][column] = "possible";
       }
     }
 
-    if (whitePieces.indexOf(boardData[row + 1][column - 1]) !== -1) {
-      boardOverlay[row + 1][column - 1] = "possible";
+    if (whitePieces.indexOf(state.game.board[row + 1][column - 1]) !== -1) {
+      state.game.boardOverlay[row + 1][column - 1] = "possible";
     }
 
-    if (whitePieces.indexOf(boardData[row + 1][column + 1]) !== -1) {
-      boardOverlay[row + 1][column + 1] = "possible";
+    if (whitePieces.indexOf(state.game.board[row + 1][column + 1]) !== -1) {
+      state.game.boardOverlay[row + 1][column + 1] = "possible";
     }
   }
 
-  boardOverlay[row][column] = "selected";
-  return boardOverlay;
+  state.game.boardOverlay[row][column] = "selected";
 };

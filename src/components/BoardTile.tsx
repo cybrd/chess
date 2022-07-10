@@ -23,13 +23,11 @@ export const BoardTile: FunctionComponent<{
   const handleSelect = (r: number, c: number) => {
     return () => {
       if (state.game.turn % 2 === 1 && owner === "white") {
-        state.game.boardOverlay = getPossibleMoves(state.game.board, [r, c]);
-        state.setGame({ ...state.game });
+        getPossibleMoves(state, [r, c]);
       }
 
       if (state.game.turn % 2 === 0 && owner === "black") {
-        state.game.boardOverlay = getPossibleMoves(state.game.board, [r, c]);
-        state.setGame({ ...state.game });
+        getPossibleMoves(state, [r, c]);
       }
     };
   };
