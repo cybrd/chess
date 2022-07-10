@@ -18,6 +18,14 @@
   background-color: darkgray;
 }
 
+.tile {
+  margin: 1px;
+}
+
 .tile.selected {
   background-color: red;
+}
+
+.tile.possible {
+  background-color: lightblue;
 }

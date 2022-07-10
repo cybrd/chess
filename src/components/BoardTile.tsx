@@ -2,7 +2,7 @@ import { useContext, FunctionComponent } from "react";
 
 import { StateContext } from "../context/state";
 
-import { emptyTiles } from "../models/game";
+import { getPossibleMoves } from "../services/possible-moves";
 
 export const BoardTile: FunctionComponent<{
   children: string;
@@ -22,14 +22,12 @@ export const BoardTile: FunctionComponent<{
   const handleSelect = (r: number, c: number) => {
     return () => {
       if (state.game.turn % 2 === 1 && owner === "white") {
-        state.game.boardOverlay = JSON.parse(JSON.stringify(emptyTiles));
-        state.game.boardOverlay[r][c] = "selected";
+        state.game.boardOverlay = getPossibleMoves(state.game.board, [r, c]);
         state.updateGame(state.game);
       }
 
       if (state.game.turn % 2 === 0 && owner === "black") {
-        state.game.boardOverlay = JSON.parse(JSON.stringify(emptyTiles));
-        state.game.boardOverlay[r][c] = "selected";
+        state.game.boardOverlay = getPossibleMoves(state.game.board, [r, c]);
         state.updateGame(state.game);
       }
     };
